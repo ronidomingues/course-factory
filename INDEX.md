@@ -8,7 +8,7 @@ em PDF e uma apresentação por aula.
 **1.712 aulas em slides (53.648 telas)**, com o LaTeX de tudo ao lado dos PDFs.
 
 > **Novo em 16/09/2026:** **java-wildfly-primefaces** — 55 documentos, livro de
-> **509 páginas** e **25 aulas escritas à mão** (514 slides).
+> **509 páginas** e **25 aulas escritas à mão** (519 slides).
 >
 > **Republicado em 16/09/2026:** o assunto **gerenciamento-de-projetos** ganhou
 > uma edição nova — 55 documentos, livro de **336 páginas** e **25 aulas escritas
@@ -34,7 +34,7 @@ assim que a publicação estiver no ar.
 |---|---|---|
 | Livros em PDF | Andrada's Dev — link no site da empresa | a publicar |
 | Aulas em PDF | Andrada's Dev — link no site da empresa | a publicar |
-| Markdown de origem | repositório próprio, ainda não definido como público ou privado | em decisão |
+| Markdown de origem | `~/dev-learning-lab/` nesta máquina (destino gravado em `COURSES_PATH`) | local |
 
 Quem clonar esta fábrica **não recebe curso nenhum** — recebe a máquina de
 produzi-los. Ver [`README.md`](README.md) e [`docs/`](docs/README.md).
@@ -116,7 +116,7 @@ base, mas apresentar em sala pede revisão.
 
 Cursos novos nascem com as aulas **escritas à mão**: **regex** (20 aulas),
 **gerenciamento-de-projetos** (25 aulas, 351 slides) e
-**java-wildfly-primefaces** (25 aulas, 514 slides), todos de 16/09/2026. A
+**java-wildfly-primefaces** (25 aulas, 519 slides), todos de 16/09/2026. A
 diferença entre as duas coisas está em
 [`docs/06-lectures.md`](docs/06-lectures.md).
 
