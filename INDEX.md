@@ -4,14 +4,19 @@ Este é o registro do que a **Course Factory** já produziu. Cada linha é um cu
 completo: do zero absoluto ao nível de pesquisa, com projetos executáveis, livro
 em PDF e uma apresentação por aula.
 
-**Situação em 16/09/2026:** 47 cursos publicados — **11.886 páginas de livro** e
+**Situação em 16/09/2026:** 48 cursos publicados — **11.886 páginas de livro** e
 **1.712 aulas em slides (53.648 telas)**, com o LaTeX de tudo ao lado dos PDFs.
 
+> **Novo em 16/09/2026:** **java-wildfly-primefaces** — 55 documentos, livro de
+> **509 páginas** e **25 aulas escritas à mão** (514 slides).
+>
 > **Republicado em 16/09/2026:** o assunto **gerenciamento-de-projetos** ganhou
 > uma edição nova — 55 documentos, livro de **336 páginas** e **25 aulas escritas
 > à mão** (351 slides). A edição anterior, de 08/09/2026, foi substituída nesta
-> linha do catálogo; os totais acima ainda são os da consolidação anterior e serão
-> recalculados na próxima rodada de `publish-all.py`.
+> linha do catálogo.
+>
+> Os totais acima ainda são os da consolidação anterior e serão recalculados na
+> próxima rodada de `publish-all.py`.
 
 ---
 
@@ -48,7 +53,7 @@ produzi-los. Ver [`README.md`](README.md) e [`docs/`](docs/README.md).
 
 ---
 
-## Os 47 assuntos
+## Os 48 assuntos
 
 | Assunto | Gerado em | Docs | O que cobre |
 |---|---|---|---|
@@ -99,6 +104,7 @@ produzi-los. Ver [`README.md`](README.md) e [`docs/`](docs/README.md).
 | **bolha-da-ia** | 13/09/2026 | 26 | Estamos numa bolha de inteligência artificial? O curso troca a pergunta binária por um procedimento: quatro riscos separados (valuation, crédito, energia… |
 | **regex** | 16/09/2026 | 30 | Expressões regulares do zero absoluto ao nível de pesquisa. Do "Ctrl+F que entende formato" até a prova de que parênteses balanceados não formam linguagem regular. |
 | **gerenciamento-de-projetos** | 16/09/2026 | 55 | Como iniciar um projeto, o passo a passo, os documentos iniciais e de onde se parte — e depois tudo o que vem a seguir: escopo, cronograma, custo, risco, pessoas, contrato, ágil… |
+| **java-wildfly-primefaces** | 16/09/2026 | 55 | A linguagem Java moderna, a plataforma Jakarta EE 11, o servidor WildFly 41 e a suíte PrimeFaces 16: do primeiro `System.out.println` ao servidor de aplicação em produção, com três sistemas executáveis…
 
 ---
 
@@ -108,9 +114,10 @@ Os decks da primeira rodada (46 cursos) foram **gerados a partir do material** e
 estão marcados como rascunho no cabeçalho: cobrem 100% dos arquivos e servem de
 base, mas apresentar em sala pede revisão.
 
-Cursos novos nascem com as aulas **escritas à mão**: o primeiro assim foi o
-**regex** (20 aulas) e o segundo é o **gerenciamento-de-projetos** (25 aulas,
-351 slides), ambos de 16/09/2026. A diferença entre as duas coisas está em
+Cursos novos nascem com as aulas **escritas à mão**: **regex** (20 aulas),
+**gerenciamento-de-projetos** (25 aulas, 351 slides) e
+**java-wildfly-primefaces** (25 aulas, 514 slides), todos de 16/09/2026. A
+diferença entre as duas coisas está em
 [`docs/06-lectures.md`](docs/06-lectures.md).
 
 ---
