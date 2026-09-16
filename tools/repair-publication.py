@@ -23,6 +23,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import common                                    # noqa: E402
+
 TOOLS = Path(__file__).resolve().parent
 PUBLISH = TOOLS / "publish-course.py"
 PASTA_PUBLICACAO = "97-publicacao"
@@ -99,15 +102,16 @@ def unir(curso: Path, slug: str) -> bool:
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(
         description="Completes a batch publication.")
-    p.add_argument("folder", nargs="?", default="courses",
-                   help="folder holding the courses (default: courses)")
+    p.add_argument("folder", nargs="?", default="",
+                   help="folder holding the courses (default: the COURSES_PATH "
+                        "pointer, else courses/)")
     p.add_argument("--check", action="store_true", help="report only")
     p.add_argument("--brand", default="", help="path to the brand kit")
     p.add_argument("--ai-model", default="")
     p.add_argument("--agent", default="Claude Code (Anthropic)")
     args = p.parse_args(argv)
 
-    raiz = Path(args.folder).expanduser().resolve()
+    raiz = common.courses_root(args.folder)
     cursos = sorted(c for c in raiz.iterdir()
                     if c.is_dir() and not c.name.startswith("."))
 

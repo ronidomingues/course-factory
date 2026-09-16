@@ -28,6 +28,38 @@ agora, o molde basta.
 
 ---
 
+## 1b. Escolha onde os cursos ficam
+
+`courses/`, ao lado do repositório, é o padrão. Se o material pertence a outro
+lugar — uma pasta de documentos, um drive sincronizado, um repositório próprio —
+diga isso **uma vez**, num arquivo de uma linha na raiz:
+
+```bash
+echo ~/Documentos/cursos > COURSES_PATH
+python3 tools/publish-course.py --doctor | grep Courses
+# Courses  : /home/voce/Documentos/cursos (pointer)
+```
+
+Todos os programas passam a usar esse destino: `publish-course.py` acha o curso
+pelo nome curto, e `publish-all.py` e `repair-publication.py` rodam sem
+argumento. É a mesma ideia do `BRAND_PATH` — um ponteiro que a máquina lembra
+no lugar da pessoa.
+
+| Forma | Alcance |
+|---|---|
+| `--courses <caminho>` | uma chamada |
+| `COURSE_FACTORY_COURSES` | um shell |
+| **`COURSES_PATH` na raiz** | **a máquina — o normal** |
+| nada | `courses/` |
+
+O `COURSES_PATH` é ignorado pelo git: ele descreve a sua máquina, não o projeto.
+
+> O agente também respeita isso: no primeiro curso de uma máquina sem destino
+> escolhido, ele **pergunta onde salvar** e grava a resposta. Depois, não
+> pergunta mais.
+
+---
+
 ## 2. Duas formas de escrever o curso
 
 ### 2.1 Com o agente de IA — o caminho para que a fábrica existe

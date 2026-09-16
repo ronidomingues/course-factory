@@ -12,14 +12,15 @@ repositório e não exige instalação.
 | Quero… | Comando |
 |---|---|
 | saber se esta máquina publica | `python3 tools/publish-course.py --doctor` |
+| escolher onde os cursos ficam | `echo ~/Documentos/cursos > COURSES_PATH` |
 | conferir o kit de marca | `python3 tools/sync-brand.py --check` |
 | ver de onde vem cada cor | `python3 tools/sync-brand.py --colors` |
 | recolorir a marca | editar `BRAND_COLOR_*` no `brand.env`, depois `--palette` |
 | começar uma marca do zero | `python3 tools/sync-brand.py --from-template` |
 | publicar um curso | `python3 tools/publish-course.py <assunto>` |
 | só o livro / só as aulas | `... --only book` / `... --only slides` |
-| publicar tudo | `python3 tools/publish-all.py courses --jobs 6` |
-| ver o que faltou numa rodada | `python3 tools/repair-publication.py courses --check` |
+| publicar tudo | `python3 tools/publish-all.py --jobs 6` |
+| ver o que faltou numa rodada | `python3 tools/repair-publication.py --check` |
 | refazer só o que faltou | `python3 tools/repair-publication.py courses` |
 | rascunhar as aulas de um curso pronto | `python3 tools/generate-lectures.py courses/<pasta>` |
 | mudar o estilo de todos os cursos | editar `*.base.json` no kit, depois `publish-all.py --reset-config` |
@@ -48,6 +49,7 @@ recente se houver mais de uma — avisando qual escolheu.
 |---|---|---|
 | `--only {all,book,slides}` | `all` | que peça publicar |
 | `--brand <caminho>` | o slot, depois `template/` | o kit de marca a usar |
+| `--courses <caminho>` | o `COURSES_PATH`, depois `courses/` | onde procurar o curso |
 | `--md2book <caminho>` | a cópia embarcada | outro md2book |
 | `--doc-version <texto>` | `1.0` | versão impressa na capa e nos créditos |
 | `--agent <texto>` | `Claude Code (Anthropic)` | o agente creditado |
@@ -169,11 +171,28 @@ echo ~/sua-marca > tools/course-factory-brand/BRAND_PATH
 python3 tools/sync-brand.py --check     # deve dizer: (pointer)
 ```
 
+## Onde os cursos são procurados
+
+| Forma | Alcance | Quando usar |
+|---|---|---|
+| `--courses <caminho>` | uma chamada | teste pontual |
+| `COURSE_FACTORY_COURSES` | um shell | script, CI |
+| **`COURSES_PATH` na raiz do repo** | **a máquina** | **o padrão** |
+| `courses/` | — | quando nada foi dito |
+
+```bash
+echo ~/Documentos/cursos > COURSES_PATH
+python3 tools/publish-course.py --doctor | grep Courses
+```
+
+`publish-all.py` e `repair-publication.py` passam a rodar sem argumento de pasta.
+
 ## Variáveis de ambiente
 
 | Variável | Para quê |
 |---|---|
 | `COURSE_FACTORY_BRAND` | caminho do kit de marca, quando ele mora fora do slot |
+| `COURSE_FACTORY_COURSES` | onde os cursos ficam, quando não é `courses/` |
 | `MD2BOOK` | caminho de outro md2book |
 
 ---

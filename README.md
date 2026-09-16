@@ -91,6 +91,8 @@ git clone <url-deste-repositorio> course-factory && cd course-factory
 
 python3 tools/publish-course.py --doctor        # esta máquina publica sozinha?
 python3 tools/sync-brand.py --from-template     # instala a marca-molde
+
+echo ~/Documentos/cursos > COURSES_PATH         # opcional: onde os cursos ficam
 ```
 
 Abra um agente de programação nesta pasta e diga um assunto:

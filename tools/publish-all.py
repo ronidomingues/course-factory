@@ -24,6 +24,9 @@ import sys
 import time
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import common                                    # noqa: E402
+
 TOOLS = Path(__file__).resolve().parent
 PUBLISH = TOOLS / "publish-course.py"
 GENERATE = TOOLS / "generate-lectures.py"
@@ -100,8 +103,9 @@ def publicar_um(curso: Path, args) -> dict:
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(
         description="Publishes every course in a folder, in parallel.")
-    p.add_argument("folder", nargs="?", default="courses",
-                   help="folder holding the courses (default: courses)")
+    p.add_argument("folder", nargs="?", default="",
+                   help="folder holding the courses (default: the COURSES_PATH "
+                        "pointer, else courses/)")
     p.add_argument("--jobs", type=int, default=4, help="courses in parallel")
     p.add_argument("--only", choices=["all", "book", "slides"], default="all")
     p.add_argument("--brand", default="", help="path to the brand kit")
@@ -117,7 +121,7 @@ def main(argv=None) -> int:
     p.add_argument("--filter", default="", help="publish only matching names")
     args = p.parse_args(argv)
 
-    raiz = Path(args.folder).expanduser().resolve()
+    raiz = common.courses_root(args.folder)
     if not raiz.is_dir():
         print("ERROR: folder not found: %s" % raiz, file=sys.stderr)
         return 2

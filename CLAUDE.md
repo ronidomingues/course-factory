@@ -62,6 +62,47 @@ A data faz parte do nome porque material técnico envelhece: quem abre o curso
 daqui a dois anos precisa saber, antes de ler a primeira linha, contra qual
 realidade ele foi escrito. Use a data do dia em que você começou a produzir.
 
+### Onde o curso é salvo — pergunte uma vez, nunca duas
+
+`courses/` é o padrão, não uma imposição. O material costuma pertencer a outro
+lugar: uma pasta de documentos, um drive sincronizado, um repositório próprio.
+
+**Antes de criar a pasta do primeiro curso**, confira o destino:
+
+```bash
+python3 tools/publish-course.py --doctor | grep Courses
+```
+
+- Respondeu `(pointer)`, `(environment)` ou `(explicit)`? **O destino já foi
+  escolhido.** Use-o, diga em uma linha qual é, e siga sem perguntar.
+- Respondeu `(default)` **e** não existe `COURSES_PATH` na raiz? Então esta
+  máquina ainda não escolheu. **Pergunte — uma única vez**, com uma pergunta de
+  opções que aceite um caminho colado:
+
+  > **Onde salvar os cursos gerados?** Selecione uma opção ou cole o caminho.
+  >
+  > - `courses/` — dentro do repositório (padrão; já está no `.gitignore`)
+  > - `~/Documentos/cursos` — fora do repositório, junto dos seus documentos
+  > - *(outro)* — cole aqui o caminho onde deseja que o curso seja salvo
+
+  Grave a resposta e só então crie a pasta do curso:
+
+  ```bash
+  echo "<caminho escolhido>" > COURSES_PATH
+  mkdir -p "<caminho escolhido>"
+  ```
+
+Depois disso **não pergunte mais**: o `COURSES_PATH` é a memória da máquina, e
+todos os programas o leem. Trocar de ideia é reescrever esse arquivo.
+
+> Isto não contradiz *"não peça permissão para escrever os arquivos"*, logo
+> adiante. Perguntar **onde** não é perguntar **se**. A pergunta acontece uma
+> vez por máquina; escrever o curso continua sendo o trabalho pedido, sem
+> autorização nenhuma.
+
+**Guardando os cursos dentro do repositório com outro nome?** Acrescente a pasta
+ao `.gitignore` — só `courses/` e `cursos/` já estão lá, e a fábrica é pública.
+
 Ao **retomar** um curso existente, mantenha a pasta e a data originais — a data é
 de geração, não de última alteração; o que mudou vai para o `00-MAPA.md` e para o
 `INDEX.md`. Só crie pasta nova, com data nova, quando uma revisão mudar o
@@ -662,6 +703,8 @@ mude páginas ou número de aulas.
 - Se o usuário fizer uma pergunta pontual sobre um assunto **já coberto**, responda no chat
   e, se a resposta acrescentar algo permanente, incorpore ao material existente.
 - **Não peça permissão para escrever os arquivos.** Escrever é o trabalho pedido.
+  A única pergunta legítima antes de começar é **onde salvar**, e só quando a
+  máquina ainda não escolheu — ver *Onde o curso é salvo*, acima.
 - **Publicar também é o trabalho pedido.** Terminou o conteúdo de um assunto? Escreva as
   aulas e rode o `publish-course.py` na mesma sessão, sem perguntar. Um curso entregue
   sem livro e sem slides está incompleto.

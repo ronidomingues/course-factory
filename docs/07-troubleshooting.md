@@ -77,7 +77,7 @@ nos `*.base.json` do kit não chegam. É a causa nº 1 de "mudei e não mudou".
 
 | Mensagem | Causa | Correção |
 |---|---|---|
-| `ERROR: course folder not found: docker` | nome errado, ou a pasta não está em `courses/` | Rode a partir da raiz do repositório, ou passe o caminho: `courses/docker-2026-08-11` |
+| `ERROR: course folder not found: docker` | nome errado, ou os cursos não estão onde a fábrica procura | A mensagem lista as pastas consultadas. Aponte o destino: `echo <caminho> > COURSES_PATH`, ou passe `--courses <caminho>` |
 | `WARNING: more than one course named docker; using the most recent` | duas gerações do mesmo assunto | É o comportamento esperado. Para escolher outra, passe a pasta com a data |
 | `WARNING: ... has no 00-MAPA.md — the title will come from the folder name.` | curso sem mapa | Crie o `00-MAPA.md`. O título e o subtítulo da capa saem dele |
 

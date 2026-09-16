@@ -21,6 +21,12 @@ The engine looks for a kit in this order, and the first hit wins:
 A folder is a brand kit when it has `latex/coursebook.sty`. That single file is
 the marker: it is the one piece the book cannot be built without.
 
+The same pointer idea answers a second question — **where the courses go**. The
+default is `courses/` beside this repository, but the material often belongs
+somewhere else entirely (a documents folder, a synced drive, a repository of
+its own). `COURSES_PATH` at the repository root names that place, once, and the
+machine remembers it instead of the person.
+
 See `docs/03-brand-kit.md` for the full contract.
 """
 
@@ -36,6 +42,12 @@ BRAND_MARKER = Path("latex") / "coursebook.sty"
 BRAND_SLOT = "course-factory-brand"
 BRAND_TEMPLATE = "template"
 BRAND_POINTER = "BRAND_PATH"      # one line: where the kit really lives
+
+# Where the generated courses live. Same shape as BRAND_PATH, one level up:
+# a one-line file at the repository root.
+COURSES_POINTER = "COURSES_PATH"
+COURSES_DEFAULT = "courses"
+COURSES_LEGACY = "cursos"         # the folder name courses used before
 
 
 class Brand:
@@ -185,6 +197,71 @@ def converter_colors(env: dict, piece: str) -> dict:
     return out
 
 
+def repo_root() -> Path:
+    """The repository that holds `tools/`."""
+    return tools_dir().parent
+
+
+def read_pointer(path: Path):
+    """The first real path named by a one-line pointer file, or None.
+
+    Blank lines and lines starting with `#` are comments, so the file can
+    explain itself to whoever opens it in a year.
+    """
+    if not path.is_file():
+        return None
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        target = Path(line).expanduser()
+        if not target.is_absolute():
+            target = path.parent / target
+        return target.resolve()
+    return None
+
+
+def courses_root(explicit=None) -> Path:
+    """Where the generated courses live, in order of precedence:
+
+    1. an explicit path — `--courses <path>`;
+    2. `COURSE_FACTORY_COURSES` in the environment;
+    3. the `COURSES_PATH` pointer at the repository root;
+    4. `courses/` beside the repository — the default;
+    5. `cursos/`, the name this folder had before, when it is the one that
+       exists (an older checkout keeps working without being renamed).
+
+    This never creates the folder. Deciding where a course goes is one thing;
+    creating it is the job of whoever writes the course.
+    """
+    if explicit:
+        return Path(explicit).expanduser().resolve()
+
+    from_env = os.environ.get("COURSE_FACTORY_COURSES")
+    if from_env:
+        return Path(from_env).expanduser().resolve()
+
+    pointed = read_pointer(repo_root() / COURSES_POINTER)
+    if pointed is not None:
+        return pointed
+
+    root = repo_root()
+    if not (root / COURSES_DEFAULT).is_dir() and (root / COURSES_LEGACY).is_dir():
+        return (root / COURSES_LEGACY).resolve()
+    return (root / COURSES_DEFAULT).resolve()
+
+
+def courses_origin(explicit=None) -> str:
+    """How `courses_root` was decided — for the diagnosis screen."""
+    if explicit:
+        return "explicit"
+    if os.environ.get("COURSE_FACTORY_COURSES"):
+        return "environment"
+    if read_pointer(repo_root() / COURSES_POINTER) is not None:
+        return "pointer"
+    return "default"
+
+
 def find_brand(explicit=None) -> Brand:
     """Resolve which brand kit to publish with. See the module docstring."""
     slot = tools_dir() / BRAND_SLOT
@@ -223,21 +300,13 @@ def read_brand_pointer(slot: Path = None):
     """
     slot = slot or (tools_dir() / BRAND_SLOT)
     pointer = slot / BRAND_POINTER
-    if not pointer.is_file():
+    root = read_pointer(pointer)
+    if root is None:
         return None
-    for line in pointer.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"):
-            continue
-        root = Path(line).expanduser()
-        if not root.is_absolute():
-            root = slot / root
-        root = root.resolve()
-        if (root / BRAND_MARKER).is_file():
-            return root
-        print("WARNING: %s points at %s, which is not a brand kit — ignoring."
-              % (pointer, root), file=sys.stderr)
-        return None
+    if (root / BRAND_MARKER).is_file():
+        return root
+    print("WARNING: %s points at %s, which is not a brand kit — ignoring."
+          % (pointer, root), file=sys.stderr)
     return None
 
 

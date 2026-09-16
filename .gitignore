@@ -9,6 +9,8 @@
 # repositório próprio), e mantenha o catálogo em INDEX.md.
 /courses/
 /cursos/
+# O ponteiro do destino: descreve ESTA máquina, não o projeto.
+/COURSES_PATH
 .publication.json
 .publicacao.json
 .course-factory-fonts/

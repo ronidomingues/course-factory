@@ -48,8 +48,10 @@ MESES = ("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho",
 # generation; the PDF name uses only the subject, so it stays readable.
 RE_COURSE_DIR = re.compile(r"^(?P<slug>.+)-(?P<data>\d{4}-\d{2}-\d{2})$")
 
-# Folder names that hold courses, newest convention first.
-COURSE_ROOTS = ("courses", "cursos")
+# Folder names that hold courses, newest convention first. Kept for the
+# "is this course folder inside a courses root?" test; where the courses
+# actually live is resolved by common.courses_root().
+COURSE_ROOTS = (common.COURSES_DEFAULT, common.COURSES_LEGACY)
 
 
 def partes_do_nome(nome: str):
@@ -60,7 +62,7 @@ def partes_do_nome(nome: str):
     return nome, ""
 
 
-def achar_curso(argumento: str) -> Path:
+def achar_curso(argumento: str, raiz=None) -> Path:
     """Accepts a path, a dated folder name, or just the subject ("docker").
 
     Without this, publishing a course would mean typing its generation date
@@ -71,10 +73,18 @@ def achar_curso(argumento: str) -> Path:
         return alvo.resolve()
 
     nome = alvo.name
-    bases = [Path.cwd()] + [Path.cwd() / r for r in COURSE_ROOTS]
-    if alvo.parent != Path("."):
-        bases.insert(0, alvo.parent)
+    candidatas = ([alvo.parent] if alvo.parent != Path(".") else [])
+    candidatas += ([raiz] if raiz else [])
+    candidatas += [Path.cwd()] + [Path.cwd() / r for r in COURSE_ROOTS]
+    bases, vistas = [], set()
+    for base in candidatas:                  # a mesma pasta não se procura duas vezes
+        chave = str(Path(base).resolve())
+        if chave not in vistas:
+            vistas.add(chave)
+            bases.append(base)
     for base in bases:
+        if not base.is_dir():
+            continue
         direto = base / nome
         if direto.is_dir():
             return direto.resolve()
@@ -85,7 +95,12 @@ def achar_curso(argumento: str) -> Path:
                 aviso("more than one course named %s; using the most recent: %s"
                       % (nome, candidatos[-1].name))
             return candidatos[-1].resolve()
-    erro("course folder not found: %s" % argumento)
+    erro("course folder not found: %s\n"
+         "  Looked in: %s\n"
+         "  Courses live in %s — change it with COURSES_PATH at the repository\n"
+         "  root, or pass --courses <path>."
+         % (argumento, ", ".join(str(b) for b in bases),
+            raiz or common.courses_root()))
 
 
 # ------------------------------------------------------------------ helpers ---
@@ -762,10 +777,14 @@ def escrever_leiame(curso: Path, meta: dict, livro, decks) -> None:
 
 # -------------------------------------------------------------------- main ---
 
-def diagnostico() -> int:
+def diagnostico(courses=None) -> int:
     """Says, in one screen, whether this machine can publish a course alone."""
     import shutil as sh
     print(BRAND.report())
+    raiz = common.courses_root(courses)
+    print("Courses  : %s (%s)%s"
+          % (raiz, common.courses_origin(courses),
+             "" if raiz.is_dir() else "  — folder does not exist yet"))
     print()
     md2book = common.find_md2book()
     linhas = [
@@ -814,6 +833,9 @@ def main(argv=None) -> int:
     p.add_argument("--brand", default="",
                    help="path to the brand kit (default: "
                         "tools/course-factory-brand, then its template/)")
+    p.add_argument("--courses", default="",
+                   help="folder holding the courses (default: the COURSES_PATH "
+                        "pointer, else courses/)")
     p.add_argument("--md2book", help="path to md2book (repo or md2book.py)")
     p.add_argument("--doc-version", default="1.0",
                    help="version label of this publication")
@@ -846,12 +868,12 @@ def main(argv=None) -> int:
     if args.brand:
         BRAND = common.find_brand(args.brand)
     if args.doctor:
-        return diagnostico()
+        return diagnostico(args.courses)
     if not args.course:
         p.error("name the course (or use --doctor)")
     exigir_marca()
 
-    curso = achar_curso(args.course)
+    curso = achar_curso(args.course, common.courses_root(args.courses))
     slug, data_pasta = partes_do_nome(curso.name)
     if not (curso / "00-MAPA.md").is_file():
         aviso("%s has no 00-MAPA.md — the title will come from the folder name."
