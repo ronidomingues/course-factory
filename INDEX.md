@@ -7,6 +7,12 @@ em PDF e uma apresentação por aula.
 **Situação em 16/09/2026:** 47 cursos publicados — **11.886 páginas de livro** e
 **1.712 aulas em slides (53.648 telas)**, com o LaTeX de tudo ao lado dos PDFs.
 
+> **Republicado em 16/09/2026:** o assunto **gerenciamento-de-projetos** ganhou
+> uma edição nova — 55 documentos, livro de **336 páginas** e **25 aulas escritas
+> à mão** (351 slides). A edição anterior, de 08/09/2026, foi substituída nesta
+> linha do catálogo; os totais acima ainda são os da consolidação anterior e serão
+> recalculados na próxima rodada de `publish-all.py`.
+
 ---
 
 ## Onde o material está
@@ -84,7 +90,6 @@ produzi-los. Ver [`README.md`](README.md) e [`docs/`](docs/README.md).
 | **desenvolvimento-de-sistemas** | 08/09/2026 | 42 | Qual é o fluxo real do desenvolvimento de um sistema — as 33 etapas na ordem correta, da dor do cliente ao descomissionamento. |
 | **diagramas-uml-e-modelagem-de-dados** | 08/09/2026 | 33 | Como desenhar sistemas antes de construí-los — e ler o desenho dos outros. |
 | **fisica-eletrica** | 08/09/2026 | 30 | Amperagem, tensão, potência, carga — o que cada uma significa na realidade física, quem manda em quem num circuito, e por que tensão errada queima e corrente… |
-| **gerenciamento-de-projetos** | 08/09/2026 | 36 | Como iniciar um projeto, o passo a passo, os documentos iniciais e de onde se parte — e depois tudo o que vem a seguir. Da mudança de casa ao RCPSP NP-difícil. |
 | **redes-de-computadores** | 08/09/2026 | 35 | Como funciona a rede mundial de computadores, quais são os protocolos, o que significam e quais são as regras de conexão. |
 | **sistema-operacional-linux** | 08/09/2026 | 34 | Do primeiro comando à administração de servidores de produção — e do prompt até o kernel. |
 | **triggers-buffers-e-primitivas-de-sistemas** | 08/09/2026 | 34 | O vocabulário que ninguém explica: gatilho é como um sistema decide *quando* agir; buffer é como ele lida com o fato de que as coisas não acontecem na mesma… |
@@ -93,6 +98,7 @@ produzi-los. Ver [`README.md`](README.md) e [`docs/`](docs/README.md).
 | **freelancer-desenvolvimento-web** | 09/09/2026 | 28 | Como conseguir trabalhos freelancer de desenvolvimento web, do júnior ao sênior, com investimento de R$ 0: canais, plataformas (com taxas datadas), prospecção… |
 | **bolha-da-ia** | 13/09/2026 | 26 | Estamos numa bolha de inteligência artificial? O curso troca a pergunta binária por um procedimento: quatro riscos separados (valuation, crédito, energia… |
 | **regex** | 16/09/2026 | 30 | Expressões regulares do zero absoluto ao nível de pesquisa. Do "Ctrl+F que entende formato" até a prova de que parênteses balanceados não formam linguagem regular. |
+| **gerenciamento-de-projetos** | 16/09/2026 | 55 | Como iniciar um projeto, o passo a passo, os documentos iniciais e de onde se parte — e depois tudo o que vem a seguir: escopo, cronograma, custo, risco, pessoas, contrato, ágil… |
 
 ---
 
@@ -102,9 +108,10 @@ Os decks da primeira rodada (46 cursos) foram **gerados a partir do material** e
 estão marcados como rascunho no cabeçalho: cobrem 100% dos arquivos e servem de
 base, mas apresentar em sala pede revisão.
 
-Cursos novos nascem com as aulas **escritas à mão** — o primeiro assim é o
-**regex**, com 20 aulas escritas uma a uma. A diferença entre as duas coisas está
-em [`docs/06-lectures.md`](docs/06-lectures.md).
+Cursos novos nascem com as aulas **escritas à mão**: o primeiro assim foi o
+**regex** (20 aulas) e o segundo é o **gerenciamento-de-projetos** (25 aulas,
+351 slides), ambos de 16/09/2026. A diferença entre as duas coisas está em
+[`docs/06-lectures.md`](docs/06-lectures.md).
 
 ---
 
