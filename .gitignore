@@ -1,0 +1,68 @@
+# =============================================================================
+#  Course Factory — o que NÃO sobe para o repositório
+# =============================================================================
+
+# --- os cursos gerados -------------------------------------------------------
+# O material produzido pela fábrica não mora aqui. São centenas de MB de PDF e
+# de LaTeX por rodada, e o conteúdo pertence a quem o gerou — não à ferramenta.
+# Publique os cursos onde eles devem circular (site, Drive, servidor, ou um
+# repositório próprio), e mantenha o catálogo em INDEX.md.
+/courses/
+/cursos/
+.publication.json
+.publicacao.json
+.course-factory-fonts/
+.andradasdev-tema/
+
+# --- o kit de marca instalado ------------------------------------------------
+# `tools/course-factory-brand/` é um SLOT de dependência: quem publica instala
+# ali a sua identidade, normalmente um repositório separado (e privado, se a
+# marca for). Só o pré-molde neutro é versionado aqui.
+/tools/course-factory-brand/*
+!/tools/course-factory-brand/template/
+
+# --- Python ------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# --- LaTeX -------------------------------------------------------------------
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+*.fls
+*.fdb_latexmk
+*.xdv
+*.bbl
+*.blg
+*.idx
+*.synctex.gz
+
+# --- sistema operacional e editores -----------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.idea/
+.vscode/
+
+# --- segredos ----------------------------------------------------------------
+# Nada de credencial neste repositório, em nenhuma circunstância.
+.env
+.env.*
+!*/brand.env
+*.pem
+*.key
+credentials.json
