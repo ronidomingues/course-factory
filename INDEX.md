@@ -4,9 +4,15 @@ Este é o registro do que a **Course Factory** já produziu. Cada linha é um cu
 completo: do zero absoluto ao nível de pesquisa, com projetos executáveis, livro
 em PDF e uma apresentação por aula.
 
-**Situação em 16/09/2026:** 48 cursos publicados — **11.886 páginas de livro** e
-**1.712 aulas em slides (53.648 telas)**, com o LaTeX de tudo ao lado dos PDFs.
+**Situação em 17/09/2026:** 49 cursos publicados — **12.279 páginas de livro** e
+**1.740 aulas em slides (54.565 telas)**, com o LaTeX de tudo ao lado dos PDFs.
 
+> **Novo em 17/09/2026:** **modelagem-de-dados** — 53 documentos, livro de
+> **393 páginas** e **28 aulas escritas à mão** (917 slides). Todo o código foi
+> executado antes de publicar: PostgreSQL 18.6 para os projetos 01 e 03, DuckDB
+> para o 02, e as medições de índice, plano e concorrência saíram de uma tabela
+> de 1 milhão de linhas criada para o curso.
+>
 > **Novo em 16/09/2026:** **java-wildfly-primefaces** — 55 documentos, livro de
 > **509 páginas** e **25 aulas escritas à mão** (519 slides).
 >
@@ -53,7 +59,7 @@ produzi-los. Ver [`README.md`](README.md) e [`docs/`](docs/README.md).
 
 ---
 
-## Os 48 assuntos
+## Os 49 assuntos
 
 | Assunto | Gerado em | Docs | O que cobre |
 |---|---|---|---|
@@ -105,6 +111,7 @@ produzi-los. Ver [`README.md`](README.md) e [`docs/`](docs/README.md).
 | **regex** | 16/09/2026 | 30 | Expressões regulares do zero absoluto ao nível de pesquisa. Do "Ctrl+F que entende formato" até a prova de que parênteses balanceados não formam linguagem regular. |
 | **gerenciamento-de-projetos** | 16/09/2026 | 55 | Como iniciar um projeto, o passo a passo, os documentos iniciais e de onde se parte — e depois tudo o que vem a seguir: escopo, cronograma, custo, risco, pessoas, contrato, ágil… |
 | **java-wildfly-primefaces** | 16/09/2026 | 55 | A linguagem Java moderna, a plataforma Jakarta EE 11, o servidor WildFly 41 e a suíte PrimeFaces 16: do primeiro `System.out.println` ao servidor de aplicação em produção, com três sistemas executáveis…
+| **modelagem-de-dados** | 17/09/2026 | 53 | Do primeiro "o que é um dado?" à teoria de dependências: modelo conceitual, normalização até a BCNF, chaves, restrições, tempo, dimensional, NoSQL, e os limites do que se pode provar… |
 
 ---
 
@@ -116,7 +123,8 @@ base, mas apresentar em sala pede revisão.
 
 Cursos novos nascem com as aulas **escritas à mão**: **regex** (20 aulas),
 **gerenciamento-de-projetos** (25 aulas, 351 slides) e
-**java-wildfly-primefaces** (25 aulas, 519 slides), todos de 16/09/2026. A
+**java-wildfly-primefaces** (25 aulas, 519 slides), de 16/09/2026, e
+**modelagem-de-dados** (28 aulas, 917 slides), de 17/09/2026. A
 diferença entre as duas coisas está em
 [`docs/06-lectures.md`](docs/06-lectures.md).
 
